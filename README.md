@@ -9,7 +9,14 @@
   </a>
 </p>
 
-Welcome to your Remotion project!
+#Design and Generate Video Using React and Remotion
+
+This demo presents ideas on how to design and generate videos with the power of React combined with Remotion.
+
+Watch the resulting video at:
+[TODO: PENDING DEVELOPMENT TASKS HERE]
+
+⭐️ Be sure to star this repository or post a like or comment on YouTube if interested in seeing more Remotion demos and tutorials like this. Pull requests to make this better are also very welcome. :D
 
 ## Commands
 
