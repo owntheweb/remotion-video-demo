@@ -196,9 +196,9 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							In addition to being able to create great timed graphics with
-							React, Remotion offers the unique advantage of pulling in dynamic
-							data quickly and displaying it in a reusable format.
+							In addition to being able to create timed graphics with React,
+							Remotion offers the unique advantage of pulling in dynamic data
+							quickly and displaying it in a reusable format.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
@@ -213,7 +213,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 							<Audio src={staticFile('audio/narration/04-for-example.mp3')} />
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							For example, a current weather report can created with a data
+							For example, a current weather report can be created with a data
 							fetch and designed weather components.
 						</AbsoluteFill>
 					</Series.Sequence>
