@@ -14,6 +14,7 @@ import {zColor} from '@remotion/zod-types';
 import {BackgroundAudio} from './BackgroundAudio';
 import {useEffect, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
+import {Weather} from './sequence/weather/Weather';
 
 export const myCompSchema = z.object({
 	titleText: z.string(),
@@ -211,10 +212,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							For example, a current weather report can be created with a data
-							fetch and designed weather components.
-						</AbsoluteFill>
+						<Weather apiKey={process.env.REMOTION_OPENWEATHER_API_KEY} />
 					</Series.Sequence>
 				)}
 
