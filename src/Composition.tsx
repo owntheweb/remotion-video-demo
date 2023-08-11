@@ -212,7 +212,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 								)}
 							/>
 						</Sequence>
-						<Weather apiKey={process.env.REMOTION_OPENWEATHER_API_KEY} />
+						<Weather />
 					</Series.Sequence>
 				)}
 

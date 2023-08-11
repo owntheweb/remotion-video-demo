@@ -1,50 +1,109 @@
-import React from 'react';
-import {OpenWeatherData, UnitsLabels, useOpenWeather} from 'react-open-weather';
+'use strict';
+import React, {useEffect, useState} from 'react';
 import {AbsoluteFill} from 'remotion';
 import {VideoError} from '../../VideoError';
 
+export interface WeatherDataCoord {
+	lon: number;
+	lat: number;
+}
+
+export interface WeatherDataWeather {
+	id: number;
+	main: string;
+	description: string;
+	icon: string;
+}
+
+export interface WeatherDataMain {
+	temp: number;
+	feels_like: number;
+	temp_min: number;
+	temp_max: number;
+	pressure: number;
+	humidity: number;
+}
+
+export interface WeatherDataWind {
+	speed: number;
+	deg: number;
+	gust: number;
+}
+
+export interface WeatherDataClouds {
+	all: number;
+}
+
+export interface WeatherDataSys {
+	type: number;
+	id: number;
+	country: string;
+	sunrise: number;
+	sunset: number;
+}
+
+export interface WeatherData {
+	coord: WeatherDataCoord;
+	weather: WeatherDataWeather;
+	base: string;
+	main: WeatherDataMain;
+	visibility: number;
+	wind: WeatherDataWind;
+	clouds: WeatherDataClouds;
+	dt: number;
+	sys: WeatherDataSys;
+	timezone: number;
+	id: number;
+	name: string;
+	cod: number;
+}
+
+export enum WeatherUnits {
+	METRIC = 'metric',
+	IMPERIAL = 'imperial',
+	STANDARD = 'standard',
+}
+
 export interface WeatherProps {
-	apiKey?: string;
-	lat?: string;
-	lon?: string;
-	lang?: string;
-	unit?: string;
-	unitsLabels?: UnitsLabels;
+	lat?: number;
+	lon?: number;
+	lang?: string; // Could become enum, see https://openweathermap.org/current#multi for options
+	units?: WeatherUnits;
+	locationName?: string;
 }
 
 export const Weather: React.FC<WeatherProps> = ({
-	apiKey = undefined,
-	lat = '48.137154',
-	lon = '11.576124',
+	// TODO: I can see how these default could get annoying if only wanting to specify some props, consider refactor to handle empty values
+	lat = 38.859055,
+	lon = -104.813499,
 	lang = 'en',
-	unit = 'imperial',
-	unitsLabels = {temperature: 'C', windSpeed: 'Km/h'},
+	units = WeatherUnits.IMPERIAL,
+	locationName = 'Colorado Springs',
 }) => {
-	/*
-	Const {data, isLoading, errorMessage} = useOpenWeather({
-		key: apiKey,
-		lat,
-		lon,
-		lang,
-		unit,
-	});
-	*/
+	const [errorMessage, setErrorMessage] = useState<string>();
+	const [weatherData, setWeatherData] = useState<WeatherData>();
 
-	const isLoading = false;
-	const errorMessage = '';
+	const temperatureLabel = units === 'imperial' ? 'F' : 'C';
+	const speedLabel = units === 'imperial' ? 'mph' : 'Km/h';
+	const apiKey = process.env.REMOTION_OPENWEATHER_API_KEY;
 
-	const data: OpenWeatherData = {
-		forecast: [],
-		current: {
-			date: 'Fri 27 November',
-			description: 'Clear',
-			icon: 'SVG PATH',
-			temperature: {current: '-2', min: -3, max: 1},
-			wind: '2',
-			humidity: 90,
-			locationLabel: 'Munich',
-		},
-	};
+	useEffect(() => {
+		const getData = async () => {
+			const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}`;
+			const response = await fetch(url);
+			if (!response.ok) {
+				setErrorMessage(`Weather API Error: ${response.body}`);
+				return;
+			}
+
+			const data = await response.json();
+			setWeatherData(data);
+		};
+
+		if (apiKey) {
+			getData();
+		}
+	}, [apiKey, lang, lat, lon, units]);
 
 	return (
 		<AbsoluteFill className="bg-black text-white">
@@ -54,35 +113,35 @@ export const Weather: React.FC<WeatherProps> = ({
 
 			{apiKey && errorMessage && <VideoError>{errorMessage}</VideoError>}
 
-			{apiKey && !errorMessage && data && (
+			{apiKey && !errorMessage && weatherData && (
 				<div className="w-full h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 flex">
 					<div className="grow p-24">
-						<div className="text-7xl mb-4">{data.current.locationLabel}</div>
+						<div className="text-7xl mb-4">{locationName}</div>
 
 						<hr className="mt-8 mb-4" />
 
-						{data.current.temperature?.current && (
+						{weatherData.main.temp && (
 							<>
 								<div className="text-9xl mb-4">
-									{data.current.temperature.current} {unitsLabels.temperature}
+									{weatherData.main.temp}° {temperatureLabel}
 								</div>
 							</>
 						)}
 						<div className="text-4xl mb-4 opacity-75">
-							{data.current.temperature.max} / {data.current.temperature.min}
-							{unitsLabels.temperature}
+							{weatherData.main.temp_max}° / {weatherData.main.temp_min}°{' '}
+							{temperatureLabel}
 						</div>
 						<div className="text-4xl  opacity-75">
-							[icon] {data.current.description}
+							[icon] {weatherData.weather.main}
 						</div>
 
 						<hr className="mt-8 mb-10" />
 
 						<div className="text-4xl mb-4 opacity-75">
-							Wind: {data.current.wind} {unitsLabels.windSpeed}
+							Wind: {weatherData.wind.speed} {speedLabel}
 						</div>
 						<div className="text-4xl mb-4 opacity-75">
-							Humidity: {data.current.humidity} %
+							Humidity: {weatherData.main.humidity}%
 						</div>
 					</div>
 
