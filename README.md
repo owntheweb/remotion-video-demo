@@ -9,8 +9,6 @@
   </a>
 </p>
 
-#Design and Generate Video Using React and Remotion
-
 This demo presents ideas on how to design and generate videos with the power of React combined with Remotion.
 
 Watch the resulting video at:
