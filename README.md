@@ -24,6 +24,12 @@ Watch the resulting video at:
 npm i
 ```
 
+**TODO: API setup instructions (weather, market data)**
+
+```console
+npm i
+```
+
 **Start Preview**
 
 ```console
