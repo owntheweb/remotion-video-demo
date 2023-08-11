@@ -33,7 +33,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 	const {fps} = useVideoConfig();
 	const [narrationFrames, setNarrationFrames] = useState<NarrationFrames>({});
 
-	const narrationFramePadding = 20;
+	const narrationFramePadding = 17;
 
 	useEffect(() => {
 		/**
@@ -53,43 +53,51 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 
 		const getNarrationFrames = async () => {
 			const frames: NarrationFrames = {
-				'00-this-video-was': await getFrames(
-					'audio/narration/00-this-video-was.mp3'
+				'SubBlock_This-video-was-designed-and-re': await getFrames(
+					'audio/narration/SubBlock_This-video-was-designed-and-re.mp3'
 				),
-				'01-remotion-gives-web-developers': await getFrames(
-					'audio/narration/01-remotion-gives-web-developers.mp3'
+				'SubBlock_Remotion-gives-web-developers': await getFrames(
+					'audio/narration/SubBlock_Remotion-gives-web-developers.mp3'
 				),
-				'02-reusable-components': await getFrames(
-					'audio/narration/02-reusable-components.mp3'
+				'SubBlock_Reusable-components-can-be-cre': await getFrames(
+					'audio/narration/SubBlock_Reusable-components-can-be-cre.mp3'
 				),
-				'03-in-addition-to': await getFrames(
-					'audio/narration/03-in-addition-to.mp3'
+				'SubBlock_In-addition-to-being-able-to-c': await getFrames(
+					'audio/narration/SubBlock_In-addition-to-being-able-to-c.mp3'
 				),
-				'04-for-example': await getFrames('audio/narration/04-for-example.mp3'),
-				'05-it-could-be-helpful': await getFrames(
-					'audio/narration/05-it-could-be-helpful.mp3'
+				'SubBlock_For-example-a-current-weather': await getFrames(
+					'audio/narration/SubBlock_For-example-a-current-weather.mp3'
 				),
-				'06-live-financial-data': await getFrames(
-					'audio/narration/06-live-financial-data.mp3'
+				'SubBlock_It-could-be-helpful-for-a-larg': await getFrames(
+					'audio/narration/SubBlock_It-could-be-helpful-for-a-larg.mp3'
 				),
-				'07a-up': await getFrames('audio/narration/07a-up.mp3'),
-				'07b-down': await getFrames('audio/narration/07b-down.mp3'),
-				'08-using-react-to': await getFrames(
-					'audio/narration/08-using-react-to.mp3'
+				'SubBlock_Live-financial-data-can-be-acc': await getFrames(
+					'audio/narration/SubBlock_Live-financial-data-can-be-acc.mp3'
 				),
-				'09-remotion-can-also': await getFrames(
-					'audio/narration/09-remotion-can-also.mp3'
+				'SubBlock_It-looks-like-the-Dow-Jones-up': await getFrames(
+					'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-up.mp3'
 				),
-				'10-the-code-used': await getFrames(
-					'audio/narration/10-the-code-used.mp3'
+				'SubBlock_It-looks-like-the-Dow-Jones-down': await getFrames(
+					'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-down.mp3'
 				),
-				'11-also-be-sure': await getFrames(
-					'audio/narration/11-also-be-sure.mp3'
+				'SubBlock_Using-React-to-create-videos-a': await getFrames(
+					'audio/narration/SubBlock_Using-React-to-create-videos-a.mp3'
 				),
-				'13-if-you-would': await getFrames(
-					'audio/narration/13-if-you-would.mp3'
+				'SubBlock_Remotion-can-also-generate-tra': await getFrames(
+					'audio/narration/SubBlock_Remotion-can-also-generate-tra.mp3'
 				),
-				'14-thank-you': await getFrames('audio/narration/14-thank-you.mp3'),
+				'SubBlock_The-code-used-to-generate-this': await getFrames(
+					'audio/narration/SubBlock_The-code-used-to-generate-this.mp3'
+				),
+				'SubBlock_Also-be-sure-to-check-out-Rem': await getFrames(
+					'audio/narration/SubBlock_Also-be-sure-to-check-out-Rem.mp3'
+				),
+				'SubBlock_Hey-did-you-like-this-video': await getFrames(
+					'audio/narration/SubBlock_Hey-did-you-like-this-video.mp3'
+				),
+				'SubBlock_Thank-you-for-watching-and-hav': await getFrames(
+					'audio/narration/SubBlock_Thank-you-for-watching-and-hav.mp3'
+				),
 			};
 
 			setNarrationFrames(frames);
@@ -112,15 +120,18 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</AbsoluteFill>
 				</Series.Sequence>
 
-				{narrationFrames['00-this-video-was'] && (
+				{narrationFrames['SubBlock_This-video-was-designed-and-re'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['00-this-video-was'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_This-video-was-designed-and-re'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/00-this-video-was.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_This-video-was-designed-and-re.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
@@ -135,17 +146,17 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</AbsoluteFill>
 				</Series.Sequence>
 
-				{narrationFrames['01-remotion-gives-web-developers'] && (
+				{narrationFrames['SubBlock_Remotion-gives-web-developers'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['01-remotion-gives-web-developers'] +
+							narrationFrames['SubBlock_Remotion-gives-web-developers'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
 								src={staticFile(
-									'audio/narration/01-remotion-gives-web-developers.mp3'
+									'audio/narration/SubBlock_Remotion-gives-web-developers.mp3'
 								)}
 							/>
 						</Sequence>
@@ -158,59 +169,47 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['02-reusable-components'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['02-reusable-components'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile('audio/narration/02-reusable-components.mp3')}
-							/>
-						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Reusable components can be created and displayed using Remotion's
-							canvas utilizing HTML, CSS, audio, and other videos, live data,
-							and JavaScript-powered transitions.
-						</AbsoluteFill>
-					</Series.Sequence>
-				)}
-
 				<Series.Sequence durationInFrames={240}>
 					<AbsoluteFill>
 						<Video src={staticFile('video/why-not-other-video-editors.mp4')} />
 					</AbsoluteFill>
 				</Series.Sequence>
 
-				{narrationFrames['03-in-addition-to'] && (
+				{narrationFrames['SubBlock_In-addition-to-being-able-to-c'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['03-in-addition-to'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_In-addition-to-being-able-to-c'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/03-in-addition-to.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_In-addition-to-being-able-to-c.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							In addition to being able to create timed graphics with React,
-							Remotion offers the unique advantage of pulling in dynamic data
-							quickly and displaying it in a reusable format.
+							In addition to being able to create animated video graphics with
+							React, Remotion offers the unique advantage of pulling in dynamic
+							data quickly and displaying it in a reusable format.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['04-for-example'] && (
+				{narrationFrames['SubBlock_For-example-a-current-weather'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['04-for-example'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_For-example-a-current-weather'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/04-for-example.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_For-example-a-current-weather.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
 							For example, a current weather report can be created with a data
@@ -219,16 +218,18 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['05-it-could-be-helpful'] && (
+				{narrationFrames['SubBlock_It-could-be-helpful-for-a-larg'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['05-it-could-be-helpful'] +
+							narrationFrames['SubBlock_It-could-be-helpful-for-a-larg'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/05-it-could-be-helpful.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_It-could-be-helpful-for-a-larg.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
@@ -238,32 +239,39 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['06-live-financial-data'] && (
+				{narrationFrames['SubBlock_Live-financial-data-can-be-acc'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['06-live-financial-data'] +
+							narrationFrames['SubBlock_Live-financial-data-can-be-acc'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/06-live-financial-data.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_Live-financial-data-can-be-acc.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Live financial data can be accessed showcased in a flash.
+							Live financial data can be accessed and showcased in a flash.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['07a-up'] && (
+				{narrationFrames['SubBlock_It-looks-like-the-Dow-Jones-up'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['07a-up'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_It-looks-like-the-Dow-Jones-up'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/07a-up.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-up.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
 							It looks like the Dow Jones Industrial Average is up at the time
@@ -272,35 +280,40 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['08-using-react-to'] && (
+				{narrationFrames['SubBlock_Using-React-to-create-videos-a'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['08-using-react-to'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_Using-React-to-create-videos-a'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/08-using-react-to.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_Using-React-to-create-videos-a.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Using React to create a videos also enables access to 3D creation
+							Using React to create videos also enables access to 3D creation
 							tools such as Three.js, Adobe After Effects animations using
 							Lottie, CSS styling made easy via TailwindCSS and more.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['09-remotion-can-also'] && (
+				{narrationFrames['SubBlock_Remotion-can-also-generate-tra'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['09-remotion-can-also'] +
+							narrationFrames['SubBlock_Remotion-can-also-generate-tra'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
-								src={staticFile('audio/narration/09-remotion-can-also.mp3')}
+								src={staticFile(
+									'audio/narration/SubBlock_Remotion-can-also-generate-tra.mp3'
+								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
@@ -317,33 +330,42 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</AbsoluteFill>
 				</Series.Sequence>
 
-				{narrationFrames['10-the-code-used'] && (
+				{narrationFrames['SubBlock_The-code-used-to-generate-this'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['10-the-code-used'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_The-code-used-to-generate-this'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/10-the-code-used.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_The-code-used-to-generate-this.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							The code used to generate this video is available for learning
-							purposes via the following link, also available in the video
-							description below. It will give a few good ideas to get started
-							and includes examples of how to access and display data in a
-							video.
+							The code used to generate this video is available via the
+							following link, also available in the video description below. It
+							will give a few good ideas to get started and includes examples of
+							how to access and display data in a video.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['11-also-be-sure'] && (
+				{narrationFrames['SubBlock_Also-be-sure-to-check-out-Rem'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['11-also-be-sure'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_Also-be-sure-to-check-out-Rem'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/11-also-be-sure.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_Also-be-sure-to-check-out-Rem.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
 							Also, be sure to check out Remotion's excellent documentation at:
@@ -352,31 +374,41 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['13-if-you-would'] && (
+				{narrationFrames['SubBlock_Hey-did-you-like-this-video'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['13-if-you-would'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_Hey-did-you-like-this-video'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/13-if-you-would.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_Hey-did-you-like-this-video.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							If you would be interested in a step-by-step tutorial on how to
-							use React and Remotion, please leave a comment, subscribe, like
-							and tell all your friends.
+							Hey, did you like this video? Be sure to leave a comment,
+							subscribe, like and tell your friends that this video rocks your
+							world.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['14-thank-you'] && (
+				{narrationFrames['SubBlock_Thank-you-for-watching-and-hav'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['14-thank-you'] + narrationFramePadding * 2
+							narrationFrames['SubBlock_Thank-you-for-watching-and-hav'] +
+							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
-							<Audio src={staticFile('audio/narration/14-thank-you.mp3')} />
+							<Audio
+								src={staticFile(
+									'audio/narration/SubBlock_Thank-you-for-watching-and-hav.mp3'
+								)}
+							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
 							Thank you for watching and have a very, productive day.

@@ -8,8 +8,8 @@ export const BackgroundAudio: React.FC = () => {
 			volume={(f) => {
 				return interpolate(
 					f,
-					[0, 50, 180, 220, 4819, 4900],
-					[0, 0.6, 0.6, 0.07, 0.07, 0.0],
+					[0, 50, 160, 220, 4819, 4900],
+					[0, 0.4, 0.4, 0.04, 0.04, 0.0],
 					{
 						extrapolateLeft: 'clamp',
 					}
