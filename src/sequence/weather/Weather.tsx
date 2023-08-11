@@ -1,6 +1,5 @@
 import React from 'react';
-// Import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import ReactWeather, {useOpenWeather} from 'react-open-weather';
+import {OpenWeatherData, UnitsLabels, useOpenWeather} from 'react-open-weather';
 import {AbsoluteFill} from 'remotion';
 import {VideoError} from '../../VideoError';
 
@@ -10,6 +9,7 @@ export interface WeatherProps {
 	lon?: string;
 	lang?: string;
 	unit?: string;
+	unitsLabels?: UnitsLabels;
 }
 
 export const Weather: React.FC<WeatherProps> = ({
@@ -18,36 +18,36 @@ export const Weather: React.FC<WeatherProps> = ({
 	lon = '11.576124',
 	lang = 'en',
 	unit = 'imperial',
+	unitsLabels = {temperature: 'C', windSpeed: 'Km/h'},
 }) => {
-	// Const frame = useCurrentFrame();
-	// const {height, fps} = useVideoConfig();
-
-	const {data, isLoading, errorMessage} = useOpenWeather({
+	/*
+	Const {data, isLoading, errorMessage} = useOpenWeather({
 		key: apiKey,
 		lat,
 		lon,
 		lang,
 		unit,
 	});
+	*/
 
-	/*
-  Const entrance = spring({
-		fps,
-		frame,
-		config: {
-			damping: 200,
+	const isLoading = false;
+	const errorMessage = '';
+
+	const data: OpenWeatherData = {
+		forecast: [],
+		current: {
+			date: 'Fri 27 November',
+			description: 'Clear',
+			icon: 'SVG PATH',
+			temperature: {current: '-2', min: -3, max: 1},
+			wind: '2',
+			humidity: 90,
+			locationLabel: 'Munich',
 		},
-		durationInFrames: 30,
-	});
-
-	const entranceOffset = interpolate(entrance, [0, 1], [height, 0]);
-
-	const wave1 = Math.cos(frame / 15) * 10 + entranceOffset;
-	const wave2 = Math.cos((frame - 5) / 15) * 10 + entranceOffset;
-  */
+	};
 
 	return (
-		<AbsoluteFill className="bg-black text-white text-7xl p-24">
+		<AbsoluteFill className="bg-black text-white">
 			{!apiKey && (
 				<VideoError>REMOTION_OPENWEATHER_API_KEY missing in .env!</VideoError>
 			)}
@@ -55,15 +55,42 @@ export const Weather: React.FC<WeatherProps> = ({
 			{apiKey && errorMessage && <VideoError>{errorMessage}</VideoError>}
 
 			{apiKey && !errorMessage && data && (
-				<ReactWeather
-					showForecast
-					isLoading={isLoading}
-					errorMessage={errorMessage}
-					data={data}
-					lang="en"
-					locationLabel="Munich"
-					unitsLabels={{temperature: 'C', windSpeed: 'Km/h'}}
-				/>
+				<div className="w-full h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 flex">
+					<div className="grow p-24">
+						<div className="text-7xl mb-4">{data.current.locationLabel}</div>
+
+						<hr className="mt-8 mb-4" />
+
+						{data.current.temperature?.current && (
+							<>
+								<div className="text-9xl mb-4">
+									{data.current.temperature.current} {unitsLabels.temperature}
+								</div>
+							</>
+						)}
+						<div className="text-4xl mb-4 opacity-75">
+							{data.current.temperature.max} / {data.current.temperature.min}
+							{unitsLabels.temperature}
+						</div>
+						<div className="text-4xl  opacity-75">
+							[icon] {data.current.description}
+						</div>
+
+						<hr className="mt-8 mb-10" />
+
+						<div className="text-4xl mb-4 opacity-75">
+							Wind: {data.current.wind} {unitsLabels.windSpeed}
+						</div>
+						<div className="text-4xl mb-4 opacity-75">
+							Humidity: {data.current.humidity} %
+						</div>
+					</div>
+
+					<div className="shrink-0 w-5/12 bg-black opacity-25 grid justify-items-center grid-cols-1 items-center">
+						[icon]
+					</div>
+					{/* We could also use the ReactWeather component here, found design to be a bit rigid for this demo (data and svgs nice!) */}
+				</div>
 			)}
 		</AbsoluteFill>
 	);

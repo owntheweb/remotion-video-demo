@@ -1,8 +1,8 @@
 declare module 'react-open-weather' {
 	export interface OpenWeatherTemperature {
-		current: string; // WHAT?? shows in docs as '-2' while min and max are numbers, maybe doc typo
-		min: number;
-		max: number;
+		current?: string | number; // Huh, seen it used both ways in docs
+		min: string | number;
+		max: string | number;
 	}
 
 	export interface OpenWeatherCondition {
@@ -12,6 +12,7 @@ declare module 'react-open-weather' {
 		temperature: OpenWeatherTemperature;
 		wind: string;
 		humidity: number;
+		locationLabel?: string;
 	}
 
 	export interface OpenWeatherData {
@@ -50,6 +51,7 @@ declare module 'react-open-weather' {
 		locationLabel: string;
 		unitsLabels: UnitsLabels;
 		showForecast: boolean;
+		className?: string;
 	}
 
 	const ReactWeather: React.FC<ReactWeatherProps>;
