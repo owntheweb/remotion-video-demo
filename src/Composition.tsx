@@ -6,33 +6,19 @@ import {
 	useVideoConfig,
 	Video,
 } from 'remotion';
-import {Logo} from './Logo';
-import {Subtitle} from './Subtitle';
-import {Title} from './Title';
-import {z} from 'zod';
-import {zColor} from '@remotion/zod-types';
 import {BackgroundAudio} from './BackgroundAudio';
 import {useEffect, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Weather} from './sequence/Weather/Weather';
 import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
 import {FamiliarTools} from './sequence/FamiliarTools/FamiliarTools';
-
-export const myCompSchema = z.object({
-	titleText: z.string(),
-	titleColor: zColor(),
-	logoColor: zColor(),
-});
+import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
 
 export interface NarrationFrames {
 	[key: string]: number;
 }
 
-export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
-	titleText: propOne,
-	titleColor: propTwo,
-	logoColor: propThree,
-}) => {
+export const MyComposition: React.FC = () => {
 	const {fps} = useVideoConfig();
 	const [narrationFrames, setNarrationFrames] = useState<NarrationFrames>({});
 
@@ -114,13 +100,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 			<BackgroundAudio />
 			<Series>
 				<Series.Sequence durationInFrames={220}>
-					<AbsoluteFill className="bg-gray-100 items-center justify-center">
-						<div className="m-10" />
-						<Logo logoColor={propThree} />
-						<div className="m-3" />
-						<Title titleText={propOne} titleColor={propTwo} />
-						<Subtitle />
-					</AbsoluteFill>
+					<TitleScreen />
 				</Series.Sequence>
 
 				{narrationFrames['SubBlock_This-video-was-designed-and-re'] && (

@@ -1,5 +1,5 @@
 import {Composition} from 'remotion';
-import {MyComposition, myCompSchema} from './Composition';
+import {MyComposition} from './Composition';
 import './style.css';
 
 export const RemotionRoot: React.FC = () => {
@@ -14,12 +14,6 @@ export const RemotionRoot: React.FC = () => {
 				fps={30}
 				width={1280}
 				height={720}
-				schema={myCompSchema}
-				defaultProps={{
-					titleText: 'Let Us Make Video With Remotion!',
-					titleColor: '#000000',
-					logoColor: '#00bfff',
-				}}
 			/>
 		</>
 	);
