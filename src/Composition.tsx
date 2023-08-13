@@ -14,7 +14,7 @@ import {zColor} from '@remotion/zod-types';
 import {BackgroundAudio} from './BackgroundAudio';
 import {useEffect, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
-import {Weather} from './sequence/weather/Weather';
+import {Weather} from './sequence/Weather/Weather';
 
 export const myCompSchema = z.object({
 	titleText: z.string(),

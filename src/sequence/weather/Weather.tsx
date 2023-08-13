@@ -1,13 +1,6 @@
 'use strict';
 import React, {useEffect, useState} from 'react';
-import {
-	AbsoluteFill,
-	Easing,
-	interpolate,
-	spring,
-	useCurrentFrame,
-	useVideoConfig,
-} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
 import {VideoError} from '../../VideoError';
 import {OpenWeatherData, OpenWeatherUnits} from './OpenWeatherData';
 import {WeatherIconSidebar} from './WeatherIconSidebar';
