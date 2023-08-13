@@ -1,9 +1,17 @@
 'use strict';
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill} from 'remotion';
+import {
+	AbsoluteFill,
+	Easing,
+	interpolate,
+	spring,
+	useCurrentFrame,
+	useVideoConfig,
+} from 'remotion';
 import {VideoError} from '../../VideoError';
-import {WeatherIcon} from './WeatherIcon';
 import {OpenWeatherData, OpenWeatherUnits} from './OpenWeatherData';
+import {WeatherIconSidebar} from './WeatherIconSidebar';
+import {BlinkingDynamicData} from './BlinkingDynamicData';
 
 export interface WeatherProps {
 	lat?: number;
@@ -23,6 +31,19 @@ export const Weather: React.FC<WeatherProps> = ({
 }) => {
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [weatherData, setWeatherData] = useState<OpenWeatherData>();
+
+	const frame = useCurrentFrame();
+
+	// Weather data animated entrance transition
+	const weatherDataOpacity = interpolate(frame, [80, 110], [0, 1.0], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+	});
+	const weatherDataX = interpolate(frame, [80, 110], [50, 0], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+		easing: Easing.out(Easing.ease),
+	});
 
 	const temperatureLabel = units === 'imperial' ? 'F' : 'C';
 	const speedLabel = units === 'imperial' ? 'mph' : 'Km/h';
@@ -61,15 +82,15 @@ export const Weather: React.FC<WeatherProps> = ({
 
 			{apiKey && !errorMessage && weatherData && (
 				<div className="w-full h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 flex">
-					<div className="shrink-0 w-5/12 bg-black opacity-25 grid justify-items-center grid-cols-1 items-center">
-						<WeatherIcon
-							openWeatherCode={weatherData.weather[0].icon.toString()}
-							className="opacity-85"
-							size="30em"
-						/>
-					</div>
+					<WeatherIconSidebar weatherIconCode={weatherData.weather[0].icon} />
 
-					<div className="grow p-24">
+					<div
+						className="grow p-24"
+						style={{
+							opacity: weatherDataOpacity,
+							transform: `translateX(${weatherDataX}px)`,
+						}}
+					>
 						<div className="text-7xl mb-4">{locationName}</div>
 
 						<hr className="mt-8 mb-4" />
@@ -95,6 +116,8 @@ export const Weather: React.FC<WeatherProps> = ({
 							Humidity: {weatherData.main.humidity}%
 						</div>
 					</div>
+
+					<BlinkingDynamicData />
 				</div>
 			)}
 		</AbsoluteFill>
