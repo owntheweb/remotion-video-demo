@@ -15,6 +15,7 @@ import {BackgroundAudio} from './BackgroundAudio';
 import {useEffect, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Weather} from './sequence/Weather/Weather';
+import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
 
 export const myCompSchema = z.object({
 	titleText: z.string(),
@@ -135,9 +136,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							This video was designed and rendered using React and Remotion.
-						</AbsoluteFill>
+						<ReactAndRemotion />
 					</Series.Sequence>
 				)}
 
