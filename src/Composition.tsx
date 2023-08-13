@@ -16,6 +16,7 @@ import {useEffect, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Weather} from './sequence/Weather/Weather';
 import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
+import {FamiliarTools} from './sequence/FamiliarTools/FamiliarTools';
 
 export const myCompSchema = z.object({
 	titleText: z.string(),
@@ -160,12 +161,7 @@ export const MyComposition: React.FC<z.infer<typeof myCompSchema>> = ({
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Remotion gives web developers and designers a set of libraries to
-							bring familiar tools into video projects, allowing for innovative
-							creativity that traditional video production tools handle very
-							differently.
-						</AbsoluteFill>
+						<FamiliarTools />
 					</Series.Sequence>
 				)}
 
