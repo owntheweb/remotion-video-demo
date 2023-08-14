@@ -13,6 +13,7 @@ import {Weather} from './sequence/Weather/Weather';
 import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
 import {FamiliarTools} from './sequence/FamiliarTools/FamiliarTools';
 import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
+import {Training} from './sequence/Training/Training';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -205,10 +206,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							It could be helpful for a large set of training modules where
-							there's a consistent format that could be automated.
-						</AbsoluteFill>
+						<Training />
 					</Series.Sequence>
 				)}
 
