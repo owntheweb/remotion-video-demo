@@ -27,8 +27,12 @@ npm i
 **TODO: API setup instructions (weather, market data)**
 
 ```console
-npm i
+TODO
 ```
+
+**TODO: Background music setup (see public/audio/external/README.md)**
+
+TODO
 
 **Start Preview**
 

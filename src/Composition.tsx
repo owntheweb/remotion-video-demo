@@ -14,6 +14,7 @@ import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
 import {FamiliarTools} from './sequence/FamiliarTools/FamiliarTools';
 import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
 import {Training} from './sequence/Training/Training';
+import {DynamicData} from './sequence/DynamicData/DynamicData';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -166,11 +167,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Using React with Remotion offers a unique advantage in fetching
-							and displaying dynamic data at render time, just like on a
-							website.
-						</AbsoluteFill>
+						<DynamicData />
 					</Series.Sequence>
 				)}
 
