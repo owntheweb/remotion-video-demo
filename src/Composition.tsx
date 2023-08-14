@@ -51,8 +51,8 @@ export const MyComposition: React.FC = () => {
 				'SubBlock_Reusable-components-can-be-cre': await getFrames(
 					'audio/narration/SubBlock_Reusable-components-can-be-cre.mp3'
 				),
-				'SubBlock_In-addition-to-being-able-to-c': await getFrames(
-					'audio/narration/SubBlock_In-addition-to-being-able-to-c.mp3'
+				'SubBlock_Using-React-with-Remotion-offe': await getFrames(
+					'audio/narration/SubBlock_Using-React-with-Remotion-offe.mp3'
 				),
 				'SubBlock_For-example-a-current-weather': await getFrames(
 					'audio/narration/SubBlock_For-example-a-current-weather.mp3'
@@ -151,24 +151,24 @@ export const MyComposition: React.FC = () => {
 					</AbsoluteFill>
 				</Series.Sequence>
 
-				{narrationFrames['SubBlock_In-addition-to-being-able-to-c'] && (
+				{narrationFrames['SubBlock_Using-React-with-Remotion-offe'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['SubBlock_In-addition-to-being-able-to-c'] +
+							narrationFrames['SubBlock_Using-React-with-Remotion-offe'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
 								src={staticFile(
-									'audio/narration/SubBlock_In-addition-to-being-able-to-c.mp3'
+									'audio/narration/SubBlock_Using-React-with-Remotion-offe.mp3'
 								)}
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							In addition to being able to create animated video graphics with
-							React, Remotion offers the unique advantage of pulling in dynamic
-							data quickly and displaying it in a reusable format.
+							Using React with Remotion offers a unique advantage in fetching
+							and displaying dynamic data at render time, just like on a
+							website.
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}

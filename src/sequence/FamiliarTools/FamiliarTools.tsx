@@ -37,6 +37,7 @@ export const FamiliarTools: React.FC = () => {
 			<div className="grid gap-6 grid-cols-3 grid-rows-2 h-full">
 				{imgSources.map((imgSrc, index) => (
 					<Img
+						key={imgSrc} // It's a unique string
 						src={imgSrc}
 						alt="React"
 						className="h-full m-auto"

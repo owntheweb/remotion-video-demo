@@ -8,7 +8,9 @@ export const BlinkingDynamicData: React.FC = () => {
 
 	// Blink after a pause
 	const show =
-		frame > 120 && Math.round(Math.round(((frame + 1) / fps) * 200) * 0.01) % 2;
+		frame > 120 &&
+		frame < 175 &&
+		Math.round(Math.round(((frame + 1) / fps) * 200) * 0.01) % 2;
 
 	if (!show) {
 		return null;
