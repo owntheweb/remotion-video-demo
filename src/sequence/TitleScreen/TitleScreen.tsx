@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
 import {Title} from './Title';
 import {ReactLogo} from './ReactLogo';
 
@@ -12,6 +12,12 @@ export const TitleScreen: React.FC = () => {
 		extrapolateRight: 'clamp',
 	});
 
+	const translateY = interpolate(frame, [20, 60], [50, 0], {
+		extrapolateLeft: 'clamp',
+		extrapolateRight: 'clamp',
+		easing: Easing.out(Easing.ease),
+	});
+
 	return (
 		<AbsoluteFill className="bg-black">
 			<AbsoluteFill
@@ -20,11 +26,19 @@ export const TitleScreen: React.FC = () => {
 					opacity,
 				}}
 			>
+				<ReactLogo
+					rotate
+					startFrame={0}
+					endFrame={220}
+					degrees={30}
+					className="opacity-10 absolute left-0 top-[-4.05em]"
+				/>
 				<ReactLogo rotate startFrame={0} endFrame={220} degrees={100} />
 				<Title
 					titleText="Creating Videos With React"
 					titleColor="#C8F3FF"
 					className="mt-24"
+					style={{transform: `translateY(${translateY}px)`}}
 				/>
 			</AbsoluteFill>
 		</AbsoluteFill>

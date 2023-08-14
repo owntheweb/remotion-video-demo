@@ -7,6 +7,7 @@ export interface ReactLogoProps {
 	startFrame?: number;
 	endFrame?: number;
 	degrees?: number;
+	className?: string;
 }
 
 export const ReactLogo: React.FC<ReactLogoProps> = ({
@@ -14,6 +15,7 @@ export const ReactLogo: React.FC<ReactLogoProps> = ({
 	startFrame = 0,
 	endFrame = 10,
 	degrees = 10,
+	className,
 }) => {
 	const frame = useCurrentFrame();
 
@@ -28,6 +30,7 @@ export const ReactLogo: React.FC<ReactLogoProps> = ({
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="-11.5 -10.23174 23 20.46348"
+			className={className}
 			style={{transform: `rotate(${rotation}deg)`}}
 		>
 			<title>React Logo</title>
