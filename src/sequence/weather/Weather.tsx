@@ -1,6 +1,14 @@
 'use strict';
-import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+	AbsoluteFill,
+	Easing,
+	interpolate,
+	useCurrentFrame,
+	cancelRender,
+	continueRender,
+	delayRender,
+} from 'remotion';
 import {VideoError} from '../../VideoError';
 import {OpenWeatherData, OpenWeatherUnits} from './OpenWeatherData';
 import {WeatherIconSidebar} from './WeatherIconSidebar';
@@ -22,6 +30,7 @@ export const Weather: React.FC<WeatherProps> = ({
 	lang = 'en',
 	units = OpenWeatherUnits.IMPERIAL,
 }) => {
+	const [handleDelayRender] = useState(() => delayRender()); // Render after data fetched
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const [weatherData, setWeatherData] = useState<OpenWeatherData>();
 
@@ -47,23 +56,29 @@ export const Weather: React.FC<WeatherProps> = ({
 		  )} °${temperatureLabel}`
 		: '';
 
-	useEffect(() => {
-		const getData = async () => {
-			const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}`;
-			const response = await fetch(url);
-			if (!response.ok) {
-				setErrorMessage(`Weather API Error: ${response.body}`);
-				return;
-			}
-
-			const data = await response.json();
-			setWeatherData(data);
-		};
-
-		if (apiKey) {
-			getData();
+	const fetchData = useCallback(async () => {
+		if (!apiKey) {
+			const error = new Error(`No API key`);
+			setErrorMessage(error.message);
+			cancelRender(error);
 		}
-	}, [apiKey, lang, lat, lon, units]);
+
+		const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}`;
+		const response = await fetch(url);
+		if (!response.ok) {
+			const error = new Error(`Weather API Error: ${response.body}`);
+			setErrorMessage(error.message);
+			cancelRender(error);
+		}
+
+		const data = await response.json();
+		setWeatherData(data);
+		continueRender(handleDelayRender);
+	}, [apiKey, handleDelayRender, lang, lat, lon, units]);
+
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
 
 	return (
 		<AbsoluteFill className="bg-black text-white">
