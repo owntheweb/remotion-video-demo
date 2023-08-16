@@ -1,47 +1,51 @@
 {
-  "name": "remotion-video-experiment",
-  "version": "1.0.0",
-  "description": "My Remotion video",
-  "sideEffects": [
-    "*.css"
-  ],
-  "scripts": {
-    "start": "remotion studio",
-    "build": "remotion render MyComp out/video.mp4",
-    "upgrade": "remotion upgrade",
-    "test": "eslint src --ext ts,tsx,js,jsx && tsc"
-  },
-  "repository": {},
-  "license": "UNLICENSED",
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "webpack"
-      ]
-    }
-  },
-  "dependencies": {
-    "@remotion/bundler": "4.0.17",
-    "@remotion/cli": "4.0.17",
-    "@remotion/zod-types": "4.0.17",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "remotion": "4.0.17",
-    "weather-icons-react": "^1.2.0",
-    "zod": "^3.21.4"
-  },
-  "devDependencies": {
-    "@remotion/cli": "4.0.17",
-    "@remotion/eslint-config": "4.0.17",
-    "@remotion/tailwind": "4.0.17",
-    "@types/react": "^18.0.26",
-    "@types/web": "^0.0.86",
-    "eslint": "^8.43.0",
-    "prettier": "^2.8.8",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "remotion": "4.0.17",
-    "typescript": "^4.9.4"
-  },
-  "packageManager": "npm@9.5.1"
+	"name": "remotion-video-experiment",
+	"version": "1.0.0",
+	"description": "My Remotion video",
+	"sideEffects": [
+		"*.css"
+	],
+	"scripts": {
+		"start": "remotion studio",
+		"build": "remotion render MyComp out/video.mp4",
+		"upgrade": "remotion upgrade",
+		"test": "eslint src --ext ts,tsx,js,jsx && tsc"
+	},
+	"repository": {},
+	"license": "UNLICENSED",
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"webpack"
+			]
+		}
+	},
+	"dependencies": {
+		"@remotion/bundler": "4.0.20",
+		"@remotion/cli": "4.0.20",
+		"@remotion/three": "^4.0.20",
+		"@remotion/zod-types": "4.0.20",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"remotion": "4.0.20",
+		"styled-components": "^6.0.7",
+		"svg-path-properties": "^1.2.0",
+		"svg-path-reverse": "^1.7.0",
+		"weather-icons-react": "^1.2.0",
+		"zod": "^3.21.4"
+	},
+	"devDependencies": {
+		"@remotion/cli": "4.0.20",
+		"@remotion/eslint-config": "4.0.20",
+		"@remotion/tailwind": "4.0.20",
+		"@types/react": "^18.0.26",
+		"@types/web": "^0.0.86",
+		"eslint": "^8.43.0",
+		"prettier": "^2.8.8",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"remotion": "4.0.20",
+		"typescript": "^4.9.4"
+	},
+	"packageManager": "npm@9.5.1"
 }

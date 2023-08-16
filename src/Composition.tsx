@@ -18,6 +18,10 @@ import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
 import {Training} from './sequence/Training/Training';
 import {DynamicData} from './sequence/DynamicData/DynamicData';
 import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
+import {
+	NodeLottieTailwind,
+	ThreeLottieTailwind,
+} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -236,11 +240,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Using React to create videos also enables access to 3D creation
-							tools such as Three.js, Adobe After Effects animations using
-							Lottie, CSS styling made easy via TailwindCSS and more.
-						</AbsoluteFill>
+						<ThreeLottieTailwind />
 					</Series.Sequence>
 				)}
 
