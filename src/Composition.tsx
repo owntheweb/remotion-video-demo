@@ -1,3 +1,5 @@
+// TODO: 🔥 This file is definitely a work in progress while learning around Remotion. Standby for simplification.
+
 import {Audio, Sequence} from 'remotion';
 import {
 	AbsoluteFill,
@@ -15,6 +17,7 @@ import {FamiliarTools} from './sequence/FamiliarTools/FamiliarTools';
 import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
 import {Training} from './sequence/Training/Training';
 import {DynamicData} from './sequence/DynamicData/DynamicData';
+import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -62,14 +65,8 @@ export const MyComposition: React.FC = () => {
 				'SubBlock_It-could-be-helpful-for-a-larg': await getFrames(
 					'audio/narration/SubBlock_It-could-be-helpful-for-a-larg.mp3'
 				),
-				'SubBlock_Live-financial-data-can-be-acc': await getFrames(
-					'audio/narration/SubBlock_Live-financial-data-can-be-acc.mp3'
-				),
-				'SubBlock_It-looks-like-the-Dow-Jones-up': await getFrames(
-					'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-up.mp3'
-				),
-				'SubBlock_It-looks-like-the-Dow-Jones-down': await getFrames(
-					'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-down.mp3'
+				'SubBlock_Heres-the-NASA-Picture-of-the': await getFrames(
+					'audio/narration/SubBlock_Heres-the-NASA-Picture-of-the.mp3'
 				),
 				'SubBlock_Using-React-to-create-videos-a': await getFrames(
 					'audio/narration/SubBlock_Using-React-to-create-videos-a.mp3'
@@ -207,44 +204,21 @@ export const MyComposition: React.FC = () => {
 					</Series.Sequence>
 				)}
 
-				{narrationFrames['SubBlock_Live-financial-data-can-be-acc'] && (
+				{narrationFrames['SubBlock_Heres-the-NASA-Picture-of-the'] && (
 					<Series.Sequence
 						durationInFrames={
-							narrationFrames['SubBlock_Live-financial-data-can-be-acc'] +
+							narrationFrames['SubBlock_Heres-the-NASA-Picture-of-the'] +
 							narrationFramePadding * 2
 						}
 					>
 						<Sequence from={narrationFramePadding}>
 							<Audio
 								src={staticFile(
-									'audio/narration/SubBlock_Live-financial-data-can-be-acc.mp3'
+									'audio/narration/SubBlock_Heres-the-NASA-Picture-of-the.mp3'
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Live financial data can be accessed and showcased in a flash.
-						</AbsoluteFill>
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_It-looks-like-the-Dow-Jones-up'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_It-looks-like-the-Dow-Jones-up'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_It-looks-like-the-Dow-Jones-up.mp3'
-								)}
-							/>
-						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							It looks like the Dow Jones Industrial Average is up at the time
-							this video creation was triggered.
-						</AbsoluteFill>
+						<NasaPicOfTheDay />
 					</Series.Sequence>
 				)}
 
