@@ -11,6 +11,7 @@ import {
 	interpolate,
 	useCurrentFrame,
 } from 'remotion';
+import {VideoError} from '../../VideoError';
 
 export interface NasaPicOfTheDayData {
 	copyright: string;
@@ -91,6 +92,12 @@ export const NasaPicOfTheDay: React.FC = () => {
 
 	return (
 		<AbsoluteFill className="bg-slate-900 text-white p-24">
+			{!apiKey && (
+				<VideoError>REMOTION_OPENWEATHER_API_KEY missing in .env!</VideoError>
+			)}
+
+			{apiKey && errorMessage && <VideoError>{errorMessage}</VideoError>}
+
 			{nasaData?.hdurl && (
 				<>
 					<Img
