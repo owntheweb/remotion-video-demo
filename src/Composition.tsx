@@ -18,10 +18,7 @@ import {TitleScreen} from './sequence/TitleScreen/TitleScreen';
 import {Training} from './sequence/Training/Training';
 import {DynamicData} from './sequence/DynamicData/DynamicData';
 import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
-import {
-	NodeLottieTailwind,
-	ThreeLottieTailwind,
-} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
+import {ThreeLottieTailwind} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
 
 export interface NarrationFrames {
 	[key: string]: number;
