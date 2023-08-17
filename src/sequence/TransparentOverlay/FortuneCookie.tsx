@@ -16,7 +16,6 @@ const FortuneCookie: React.FC<Props> = ({
 	// TODO: Hmm... This will run every frame. I think that's ok at this tree level and purpose, yet worth a second pair of eyes.
 	useEffect(() => {
 		const normalizedFrame = Math.floor(frame) - 30;
-		console.log(frame);
 		if (normalizedFrame >= 0 && normalizedFrame < fortune.length) {
 			setText((prevText) => prevText + fortune[normalizedFrame]);
 		}
