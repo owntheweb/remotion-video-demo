@@ -3,6 +3,7 @@ import {ReactElement, useEffect, useLayoutEffect, useRef} from 'react';
 import React, {useCallback, useState} from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame} from 'remotion';
 import ThreeJs from './ThreeJs';
+import LottieAnimation from './LottieAnimation';
 
 export const ThreeLottieTailwind: React.FC = () => {
 	const frame = useCurrentFrame();
@@ -49,7 +50,9 @@ export const ThreeLottieTailwind: React.FC = () => {
 				<div className="border-[#61DAFB] border-4 rounded h-full">
 					<ThreeJs />
 				</div>
-				<div className="border-[#61DAFB] border-4 rounded h-full">Hello</div>
+				<div className="border-[#61DAFB] border-4 rounded h-full">
+					<LottieAnimation />
+				</div>
 				<div className="border-[#61DAFB] border-4 rounded h-full">Hello</div>
 			</div>
 		</AbsoluteFill>

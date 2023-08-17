@@ -23,8 +23,10 @@
 	"dependencies": {
 		"@remotion/bundler": "4.0.20",
 		"@remotion/cli": "4.0.20",
+		"@remotion/lottie": "^4.0.20",
 		"@remotion/three": "^4.0.20",
 		"@remotion/zod-types": "4.0.20",
+		"lottie-web": "^5.12.2",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
 		"remotion": "4.0.20",
