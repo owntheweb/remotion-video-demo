@@ -1,4 +1,3 @@
-import React, {useState, useEffect} from 'react';
 import {Img, staticFile, useCurrentFrame} from 'remotion';
 
 interface Props {

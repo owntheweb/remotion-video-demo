@@ -20,6 +20,7 @@ import {DynamicData} from './sequence/DynamicData/DynamicData';
 import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
 import {ThreeLottieTailwind} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
 import {TransparentOverlay} from './sequence/TransparentOverlay/TransparentOverlay';
+import {CodeLink} from './sequence/CodeLink/CodeLink';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -280,12 +281,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							The code used to generate this video is available via the
-							following link, also available in the video description below. It
-							will give a few good ideas to get started and includes examples of
-							how to access and display data in a video.
-						</AbsoluteFill>
+						<CodeLink />
 					</Series.Sequence>
 				)}
 
