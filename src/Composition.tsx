@@ -19,6 +19,7 @@ import {Training} from './sequence/Training/Training';
 import {DynamicData} from './sequence/DynamicData/DynamicData';
 import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
 import {ThreeLottieTailwind} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
+import {TransparentOverlay} from './sequence/TransparentOverlay/TransparentOverlay';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -28,7 +29,7 @@ export const MyComposition: React.FC = () => {
 	const {fps} = useVideoConfig();
 	const [narrationFrames, setNarrationFrames] = useState<NarrationFrames>({});
 
-	const narrationFramePadding = 17;
+	const narrationFramePadding = 19;
 
 	useEffect(() => {
 		/**
@@ -255,11 +256,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Remotion can also generate transparent overlays, perfect for
-							adding dynamic content to professional video editing tools such as
-							Adobe Premiere and After Effects.
-						</AbsoluteFill>
+						<TransparentOverlay />
 					</Series.Sequence>
 				)}
 
