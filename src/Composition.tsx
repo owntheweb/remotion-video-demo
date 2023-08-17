@@ -21,6 +21,7 @@ import {NasaPicOfTheDay} from './sequence/NasaPicOfTheDay/NasaPicOfTheDay';
 import {ThreeLottieTailwind} from './sequence/NodeLottieTailwind/ThreeLottieTailwind';
 import {TransparentOverlay} from './sequence/TransparentOverlay/TransparentOverlay';
 import {CodeLink} from './sequence/CodeLink/CodeLink';
+import {DocumentationLink} from './sequence/DocumentationLink/DocumentationLink';
 
 export interface NarrationFrames {
 	[key: string]: number;
@@ -299,10 +300,7 @@ export const MyComposition: React.FC = () => {
 								)}
 							/>
 						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Also, be sure to check out Remotion's excellent documentation at:
-							https://remotion.dev
-						</AbsoluteFill>
+						<DocumentationLink />
 					</Series.Sequence>
 				)}
 
@@ -321,9 +319,9 @@ export const MyComposition: React.FC = () => {
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Hey, did you like this video? Be sure to leave a comment,
-							subscribe, like and tell your friends that this video rocks your
-							world.
+							[Placeholder: Hey, did you like this video? Be sure to leave a
+							comment, subscribe, like and tell your friends that this video
+							rocks your world.]
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
@@ -343,7 +341,8 @@ export const MyComposition: React.FC = () => {
 							/>
 						</Sequence>
 						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							Thank you for watching and have a very, productive day.
+							[Placeholder: Thank you for watching and have a very, productive
+							day.]
 						</AbsoluteFill>
 					</Series.Sequence>
 				)}
