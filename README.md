@@ -34,6 +34,10 @@ TODO
 
 TODO
 
+**TODO: Note about three.js video rendering on Mac**
+
+TODO
+
 **Start Preview**
 
 ```console

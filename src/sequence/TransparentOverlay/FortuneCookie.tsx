@@ -10,23 +10,20 @@ const FortuneCookie: React.FC<Props> = ({
 	fortune = 'Your left arm will NOT be amputated.',
 	style = {},
 }) => {
-	const [text, setText] = useState('');
 	const frame = useCurrentFrame();
 
-	// TODO: Hmm... This will run every frame. I think that's ok at this tree level and purpose, yet worth a second pair of eyes.
-	useEffect(() => {
-		const normalizedFrame = Math.floor(frame) - 30;
-		if (normalizedFrame >= 0 && normalizedFrame < fortune.length) {
-			setText((prevText) => prevText + fortune[normalizedFrame]);
-		}
-	}, [frame, fortune]);
+	const normalizedFrame = Math.floor(frame) - 30;
+	let activeFortune = '';
+	if (normalizedFrame >= 0) {
+		activeFortune = fortune.substring(0, normalizedFrame);
+	}
 
 	return (
 		<div style={style}>
 			<div className="flex items-center p-6 pr-24 absolute top-[290px] left-[320px]">
-				{text && (
+				{activeFortune && (
 					<div className="p-12 bg-white rounded shadow-lg text-3xl opacity-80 font-serif text-red-600">
-						{text}
+						{activeFortune}
 					</div>
 				)}
 			</div>

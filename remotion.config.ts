@@ -12,3 +12,7 @@ Config.setVideoImageFormat('jpeg');
 Config.setOverwriteOutput(true);
 
 Config.overrideWebpackConfig(webpackOverride);
+
+// 🔥 This is needed to get Three.js renders working on my Mac. Not great for Docker use though?
+// See: https://oss.issuehunt.io/r/remotion-dev/remotion/issues/1761
+Config.setChromiumOpenGlRenderer('angle');
