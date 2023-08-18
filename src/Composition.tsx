@@ -1,4 +1,3 @@
-import {Audio, Sequence} from 'remotion';
 import {
 	AbsoluteFill,
 	Series,
@@ -30,7 +29,7 @@ export interface NarrationFrames {
 }
 
 export interface NarrationSequenceItem {
-	content: ReactElement;
+	children: ReactElement;
 	narrationAudioKey?: string; // Narration file name without parent directories or ".mp3"
 	duration?: number; // Set a duration when not using narration, e.g. a video or title screen
 }
@@ -47,15 +46,15 @@ export const MyComposition: React.FC = () => {
 		() => [
 			{
 				duration: 220,
-				content: <TitleScreen />,
+				children: <TitleScreen />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_This-video-was-designed-and-re',
-				content: <ReactAndRemotion />,
+				children: <ReactAndRemotion />,
 			},
 			{
 				duration: 240,
-				content: (
+				children: (
 					<AbsoluteFill>
 						<Video src={staticFile('video/why-use-react.mp4')} />
 					</AbsoluteFill>
@@ -63,11 +62,11 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_Remotion-gives-web-developers',
-				content: <FamiliarTools />,
+				children: <FamiliarTools />,
 			},
 			{
 				duration: 240,
-				content: (
+				children: (
 					<AbsoluteFill>
 						<Video src={staticFile('video/why-not-other-video-editors.mp4')} />
 					</AbsoluteFill>
@@ -75,31 +74,31 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_Using-React-with-Remotion-offe',
-				content: <DynamicData />,
+				children: <DynamicData />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_For-example-a-current-weather',
-				content: <Weather />,
+				children: <Weather />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_It-could-be-helpful-for-a-larg',
-				content: <Training />,
+				children: <Training />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Heres-the-NASA-Picture-of-the',
-				content: <NasaPicOfTheDay />,
+				children: <NasaPicOfTheDay />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Using-React-to-create-videos-a',
-				content: <ThreeLottieTailwind />,
+				children: <ThreeLottieTailwind />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Remotion-can-also-generate-tra',
-				content: <TransparentOverlay />,
+				children: <TransparentOverlay />,
 			},
 			{
 				duration: 180,
-				content: (
+				children: (
 					<AbsoluteFill>
 						<Video src={staticFile('video/wonderful.mp4')} />
 					</AbsoluteFill>
@@ -107,15 +106,15 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_The-code-used-to-generate-this',
-				content: <CodeLink />,
+				children: <CodeLink />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Also-be-sure-to-check-out-Rem',
-				content: <DocumentationLink />,
+				children: <DocumentationLink />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Hey-did-you-like-this-video',
-				content: (
+				children: (
 					<AbsoluteFill className="bg-black text-white text-7xl p-24">
 						[Placeholder: Enjoy this video?]
 					</AbsoluteFill>
@@ -123,7 +122,7 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_Thank-you-for-watching-and-hav',
-				content: (
+				children: (
 					<AbsoluteFill className="bg-black text-white text-7xl p-24">
 						[Placeholder: Thank you for watching and have a very, productive
 						day.]
@@ -132,7 +131,7 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				duration: 240,
-				content: (
+				children: (
 					<AbsoluteFill>
 						<Video src={staticFile('video/farewell.mp4')} />
 					</AbsoluteFill>
@@ -204,7 +203,7 @@ export const MyComposition: React.FC = () => {
 						if (!sequenceItem.narrationAudioKey && sequenceItem.duration) {
 							return (
 								<Series.Sequence durationInFrames={sequenceItem.duration}>
-									{sequenceItem.content}
+									{sequenceItem.children}
 								</Series.Sequence>
 							);
 						}
@@ -222,7 +221,7 @@ export const MyComposition: React.FC = () => {
 										audioFile={`audio/narration/${sequenceItem.narrationAudioKey}.mp3`}
 										delay={narrationFramePadding}
 									/>
-									{sequenceItem.content}
+									{sequenceItem.children}
 								</Series.Sequence>
 							);
 						}
