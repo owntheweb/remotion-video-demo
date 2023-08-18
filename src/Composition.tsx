@@ -1,5 +1,3 @@
-// TODO: 🔥 This file is definitely a work in progress while learning around Remotion. Standby for simplification.
-
 import {Audio, Sequence} from 'remotion';
 import {
 	AbsoluteFill,
@@ -9,7 +7,7 @@ import {
 	Video,
 } from 'remotion';
 import {BackgroundAudio} from './BackgroundAudio';
-import {useEffect, useState} from 'react';
+import {ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
 import {getAudioDurationInSeconds} from '@remotion/media-utils';
 import {Weather} from './sequence/Weather/Weather';
 import {ReactAndRemotion} from './sequence/ReactAndRemotion/ReactAndRemotion';
@@ -22,336 +20,224 @@ import {ThreeLottieTailwind} from './sequence/NodeLottieTailwind/ThreeLottieTail
 import {TransparentOverlay} from './sequence/TransparentOverlay/TransparentOverlay';
 import {CodeLink} from './sequence/CodeLink/CodeLink';
 import {DocumentationLink} from './sequence/DocumentationLink/DocumentationLink';
+import {EnjoyThisVideo} from './sequence/EnjoyThisVideo/EnjoyThisVideo';
+import {NarrationSequence} from './DelayedNarrationSequence';
+import {VideoError} from './VideoError';
 
 export interface NarrationFrames {
-	[key: string]: number;
+	narrationAudioKey: string;
+	frames: number;
+}
+
+export interface NarrationSequenceItem {
+	content: ReactElement;
+	narrationAudioKey?: string; // Narration file name without parent directories or ".mp3"
+	duration?: number; // Set a duration when not using narration, e.g. a video or title screen
 }
 
 export const MyComposition: React.FC = () => {
 	const {fps} = useVideoConfig();
-	const [narrationFrames, setNarrationFrames] = useState<NarrationFrames>({});
+	const [narrationFrames, setNarrationFrames] = useState<NarrationFrames[]>([]);
 
 	const narrationFramePadding = 19;
 
-	useEffect(() => {
-		/**
-		 * Calculate sequence lengths based on narration audio length with any optional padding around that. The
-		 * original goal was to do this in individual NarratedSeriesSequence components. The <Series.Sequence />
-		 * component was extended as <NarratedSeriesSequence /> to automatically fit the sequence durationInFrames
-		 * to the narration audio length dynamically. However, the Series library does an equality check, and
-		 * doesn't like to see NarratedSeriesSequence returning Series.Sequence. useMemo() could serve as a
-		 * work-around for the type, however additional Series validation checks make this less flexible. I've
-		 * posted question on stackoverflow for discussion with this solution in place in the meantime:
-		 * https://stackoverflow.com/questions/76872538/in-react-and-typescript-why-is-my-returned-series-sequence-erroring-as-type/76872878
-		 */
-		const getFrames = async (file: string) => {
+	// This sequence in array form was designed to address unknown/dynamic audio timings in a narration-heavy
+	// video with several scenes, keeping the logic around that timing a touch more compact in render().
+	const narratedSequence: NarrationSequenceItem[] = useMemo(
+		() => [
+			{
+				duration: 220,
+				content: <TitleScreen />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_This-video-was-designed-and-re',
+				content: <ReactAndRemotion />,
+			},
+			{
+				duration: 240,
+				content: (
+					<AbsoluteFill>
+						<Video src={staticFile('video/why-use-react.mp4')} />
+					</AbsoluteFill>
+				),
+			},
+			{
+				narrationAudioKey: 'SubBlock_Remotion-gives-web-developers',
+				content: <FamiliarTools />,
+			},
+			{
+				duration: 240,
+				content: (
+					<AbsoluteFill>
+						<Video src={staticFile('video/why-not-other-video-editors.mp4')} />
+					</AbsoluteFill>
+				),
+			},
+			{
+				narrationAudioKey: 'SubBlock_Using-React-with-Remotion-offe',
+				content: <DynamicData />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_For-example-a-current-weather',
+				content: <Weather />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_It-could-be-helpful-for-a-larg',
+				content: <Training />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_Heres-the-NASA-Picture-of-the',
+				content: <NasaPicOfTheDay />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_Using-React-to-create-videos-a',
+				content: <ThreeLottieTailwind />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_Remotion-can-also-generate-tra',
+				content: <TransparentOverlay />,
+			},
+			{
+				duration: 180,
+				content: (
+					<AbsoluteFill>
+						<Video src={staticFile('video/wonderful.mp4')} />
+					</AbsoluteFill>
+				),
+			},
+			{
+				narrationAudioKey: 'SubBlock_The-code-used-to-generate-this',
+				content: <CodeLink />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_Also-be-sure-to-check-out-Rem',
+				content: <DocumentationLink />,
+			},
+			{
+				narrationAudioKey: 'SubBlock_Hey-did-you-like-this-video',
+				content: (
+					<AbsoluteFill className="bg-black text-white text-7xl p-24">
+						[Placeholder: Enjoy this video?]
+					</AbsoluteFill>
+				),
+			},
+			{
+				narrationAudioKey: 'SubBlock_Thank-you-for-watching-and-hav',
+				content: (
+					<AbsoluteFill className="bg-black text-white text-7xl p-24">
+						[Placeholder: Thank you for watching and have a very, productive
+						day.]
+					</AbsoluteFill>
+				),
+			},
+			{
+				duration: 240,
+				content: (
+					<AbsoluteFill>
+						<Video src={staticFile('video/farewell.mp4')} />
+					</AbsoluteFill>
+				),
+			},
+		],
+		[]
+	);
+
+	// Calculate sequence lengths in frames based on narration audio length in seconds.
+	const getFrames = useCallback(
+		async (file: string): Promise<number> => {
 			const seconds = await getAudioDurationInSeconds(staticFile(file));
 			return seconds * fps;
-		};
+		},
+		[fps]
+	);
 
-		const getNarrationFrames = async () => {
-			const frames: NarrationFrames = {
-				'SubBlock_This-video-was-designed-and-re': await getFrames(
-					'audio/narration/SubBlock_This-video-was-designed-and-re.mp3'
-				),
-				'SubBlock_Remotion-gives-web-developers': await getFrames(
-					'audio/narration/SubBlock_Remotion-gives-web-developers.mp3'
-				),
-				'SubBlock_Reusable-components-can-be-cre': await getFrames(
-					'audio/narration/SubBlock_Reusable-components-can-be-cre.mp3'
-				),
-				'SubBlock_Using-React-with-Remotion-offe': await getFrames(
-					'audio/narration/SubBlock_Using-React-with-Remotion-offe.mp3'
-				),
-				'SubBlock_For-example-a-current-weather': await getFrames(
-					'audio/narration/SubBlock_For-example-a-current-weather.mp3'
-				),
-				'SubBlock_It-could-be-helpful-for-a-larg': await getFrames(
-					'audio/narration/SubBlock_It-could-be-helpful-for-a-larg.mp3'
-				),
-				'SubBlock_Heres-the-NASA-Picture-of-the': await getFrames(
-					'audio/narration/SubBlock_Heres-the-NASA-Picture-of-the.mp3'
-				),
-				'SubBlock_Using-React-to-create-videos-a': await getFrames(
-					'audio/narration/SubBlock_Using-React-to-create-videos-a.mp3'
-				),
-				'SubBlock_Remotion-can-also-generate-tra': await getFrames(
-					'audio/narration/SubBlock_Remotion-can-also-generate-tra.mp3'
-				),
-				'SubBlock_The-code-used-to-generate-this': await getFrames(
-					'audio/narration/SubBlock_The-code-used-to-generate-this.mp3'
-				),
-				'SubBlock_Also-be-sure-to-check-out-Rem': await getFrames(
-					'audio/narration/SubBlock_Also-be-sure-to-check-out-Rem.mp3'
-				),
-				'SubBlock_Hey-did-you-like-this-video': await getFrames(
-					'audio/narration/SubBlock_Hey-did-you-like-this-video.mp3'
-				),
-				'SubBlock_Thank-you-for-watching-and-hav': await getFrames(
-					'audio/narration/SubBlock_Thank-you-for-watching-and-hav.mp3'
-				),
-			};
+	// Lookup the number of frames that was calculated and assigned for a narration audio file in the first useEffect() call.
+	const getNarrationFrames = useCallback(async (): Promise<void> => {
+		const frames: NarrationFrames[] = await Promise.all(
+			narratedSequence
+				.filter((sequenceItem) => sequenceItem.narrationAudioKey)
+				.map(async (sequenceItem) => ({
+					narrationAudioKey: sequenceItem.narrationAudioKey ?? '',
+					frames:
+						(await getFrames(
+							`audio/narration/${sequenceItem.narrationAudioKey}.mp3`
+						)) ?? 0,
+				}))
+		);
 
-			setNarrationFrames(frames);
-		};
+		setNarrationFrames(frames);
+	}, [getFrames, narratedSequence]);
 
+	// Get things started by calculating number of frames to show per narration audio file.
+	useEffect(() => {
 		getNarrationFrames();
-	}, [fps]);
+	}, [getNarrationFrames]);
 
+	// Find calculated frame count for narration audio file by audio file key
+	const getMatchingFrames = useCallback(
+		(narrationAudioKey: string): number => {
+			const match = narrationFrames.find(
+				(narrationFrame) =>
+					narrationFrame.narrationAudioKey === narrationAudioKey
+			);
+			if (!match || match.frames === 0) {
+				console.log(
+					`A narrated sequence has no match or no frames assigned (check audio file key spelling?) narrationAudioKey: ${
+						narrationAudioKey ?? 'empty'
+					}`
+				);
+				return 0;
+			}
+			return match.frames;
+		},
+		[narrationFrames]
+	);
+
+	// Put it all together.
 	return (
 		<>
 			<BackgroundAudio />
 			<Series>
-				<Series.Sequence durationInFrames={220}>
-					<TitleScreen />
-				</Series.Sequence>
-
-				{narrationFrames['SubBlock_This-video-was-designed-and-re'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_This-video-was-designed-and-re'] +
-							narrationFramePadding * 2
+				{narrationFrames.length > 0 &&
+					narratedSequence.map((sequenceItem) => {
+						// Render a non-narrated sequence
+						if (!sequenceItem.narrationAudioKey && sequenceItem.duration) {
+							return (
+								<Series.Sequence durationInFrames={sequenceItem.duration}>
+									{sequenceItem.content}
+								</Series.Sequence>
+							);
 						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_This-video-was-designed-and-re.mp3'
-								)}
-							/>
-						</Sequence>
-						<ReactAndRemotion />
-					</Series.Sequence>
-				)}
 
-				<Series.Sequence durationInFrames={240}>
-					<AbsoluteFill>
-						<Video src={staticFile('video/why-use-react.mp4')} />
-					</AbsoluteFill>
-				</Series.Sequence>
-
-				{narrationFrames['SubBlock_Remotion-gives-web-developers'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Remotion-gives-web-developers'] +
-							narrationFramePadding * 2
+						// Render narrated sequence
+						if (sequenceItem.narrationAudioKey) {
+							const matchingFrames = getMatchingFrames(
+								sequenceItem.narrationAudioKey
+							);
+							return (
+								<Series.Sequence
+									durationInFrames={matchingFrames + narrationFramePadding * 2}
+								>
+									<NarrationSequence
+										audioFile={`audio/narration/${sequenceItem.narrationAudioKey}.mp3`}
+										delay={narrationFramePadding}
+									/>
+									{sequenceItem.content}
+								</Series.Sequence>
+							);
 						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Remotion-gives-web-developers.mp3'
-								)}
-							/>
-						</Sequence>
-						<FamiliarTools />
-					</Series.Sequence>
-				)}
 
-				<Series.Sequence durationInFrames={240}>
-					<AbsoluteFill>
-						<Video src={staticFile('video/why-not-other-video-editors.mp4')} />
-					</AbsoluteFill>
-				</Series.Sequence>
-
-				{narrationFrames['SubBlock_Using-React-with-Remotion-offe'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Using-React-with-Remotion-offe'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Using-React-with-Remotion-offe.mp3'
-								)}
-							/>
-						</Sequence>
-						<DynamicData />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_For-example-a-current-weather'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_For-example-a-current-weather'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_For-example-a-current-weather.mp3'
-								)}
-							/>
-						</Sequence>
-						<Weather />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_It-could-be-helpful-for-a-larg'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_It-could-be-helpful-for-a-larg'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_It-could-be-helpful-for-a-larg.mp3'
-								)}
-							/>
-						</Sequence>
-						<Training />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Heres-the-NASA-Picture-of-the'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Heres-the-NASA-Picture-of-the'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Heres-the-NASA-Picture-of-the.mp3'
-								)}
-							/>
-						</Sequence>
-						<NasaPicOfTheDay />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Using-React-to-create-videos-a'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Using-React-to-create-videos-a'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Using-React-to-create-videos-a.mp3'
-								)}
-							/>
-						</Sequence>
-						<ThreeLottieTailwind />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Remotion-can-also-generate-tra'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Remotion-can-also-generate-tra'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Remotion-can-also-generate-tra.mp3'
-								)}
-							/>
-						</Sequence>
-						<TransparentOverlay />
-					</Series.Sequence>
-				)}
-
-				<Series.Sequence durationInFrames={180}>
-					<AbsoluteFill>
-						<Video src={staticFile('video/wonderful.mp4')} />
-					</AbsoluteFill>
-				</Series.Sequence>
-
-				{narrationFrames['SubBlock_The-code-used-to-generate-this'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_The-code-used-to-generate-this'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_The-code-used-to-generate-this.mp3'
-								)}
-							/>
-						</Sequence>
-						<CodeLink />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Also-be-sure-to-check-out-Rem'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Also-be-sure-to-check-out-Rem'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Also-be-sure-to-check-out-Rem.mp3'
-								)}
-							/>
-						</Sequence>
-						<DocumentationLink />
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Hey-did-you-like-this-video'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Hey-did-you-like-this-video'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Hey-did-you-like-this-video.mp3'
-								)}
-							/>
-						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							[Placeholder: Hey, did you like this video? Be sure to leave a
-							comment, subscribe, like and tell your friends that this video
-							rocks your world.]
-						</AbsoluteFill>
-					</Series.Sequence>
-				)}
-
-				{narrationFrames['SubBlock_Thank-you-for-watching-and-hav'] && (
-					<Series.Sequence
-						durationInFrames={
-							narrationFrames['SubBlock_Thank-you-for-watching-and-hav'] +
-							narrationFramePadding * 2
-						}
-					>
-						<Sequence from={narrationFramePadding}>
-							<Audio
-								src={staticFile(
-									'audio/narration/SubBlock_Thank-you-for-watching-and-hav.mp3'
-								)}
-							/>
-						</Sequence>
-						<AbsoluteFill className="bg-black text-white text-7xl p-24">
-							[Placeholder: Thank you for watching and have a very, productive
-							day.]
-						</AbsoluteFill>
-					</Series.Sequence>
-				)}
-
-				<Series.Sequence durationInFrames={240}>
-					<AbsoluteFill>
-						<Video src={staticFile('video/farewell.mp4')} />
-					</AbsoluteFill>
-				</Series.Sequence>
+						// Render error because sequence was not narrated nor duration manually specified.
+						return (
+							<Series.Sequence durationInFrames={300}>
+								<VideoError>
+									There was an error showing the video sequence item. A
+									sequenceItem.narrationAudioKey or sequenceItem.duration need
+									to be specified.
+								</VideoError>
+							</Series.Sequence>
+						);
+					})}
 			</Series>
 		</>
 	);
