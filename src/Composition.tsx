@@ -114,11 +114,7 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_Hey-did-you-like-this-video',
-				children: (
-					<AbsoluteFill className="bg-black text-white text-7xl p-24">
-						[Placeholder: Enjoy this video?]
-					</AbsoluteFill>
-				),
+				children: <EnjoyThisVideo />,
 			},
 			{
 				narrationAudioKey: 'SubBlock_Thank-you-for-watching-and-hav',
@@ -199,7 +195,7 @@ export const MyComposition: React.FC = () => {
 			<Series>
 				{narrationFrames.length > 0 &&
 					narratedSequence.map((sequenceItem) => {
-						// Render a non-narrated sequence
+						// Render a non-narrated sequence (e.g. title screen, videos with spoken content in place, other silent scenes)
 						if (!sequenceItem.narrationAudioKey && sequenceItem.duration) {
 							return (
 								<Series.Sequence durationInFrames={sequenceItem.duration}>
