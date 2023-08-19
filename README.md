@@ -16,6 +16,18 @@ Watch the resulting video at:
 
 ⭐️ Be sure to star this repository or post a like or comment on YouTube if interested in seeing more Remotion demos and tutorials like this. Pull requests to make this better are also very welcome. :D
 
+## Special thanks
+
+Background music provided courtesy of [StreamBeats](https://www.senpai.tv/streambeats/)
+
+NASA Picture of the Day courtesy of [NASA](https://api.nasa.gov/).
+
+Weather data provided by [OpenWeather](https://home.openweathermap.org/).
+
+[Looking at cell phone photo](https://github.com/owntheweb/remotion-video-demo/blob/main/public/images/jaikishan-patel-T9H8anqa458-unsplash-cropped.jpg) by [jaikishan patel](https://unsplash.com/@magictype) on [Unsplash](https://unsplash.com/photos/T9H8anqa458)
+
+[Looking at laptop photo](https://github.com/owntheweb/remotion-video-demo/blob/main/public/images/bruce-mars-xj8qrWvuOEs-unsplash-cropped.jpg) by [bruce mars](https://unsplash.com/@brucemars) on [Unsplash](https://unsplash.com/photos/xj8qrWvuOEs)
+
 ## Setup
 
 **Install Dependencies**
