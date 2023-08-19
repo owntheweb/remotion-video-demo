@@ -16,7 +16,7 @@ Watch the resulting video at:
 
 ⭐️ Be sure to star this repository or post a like or comment on YouTube if interested in seeing more Remotion demos and tutorials like this. Pull requests to make this better are also very welcome. :D
 
-## Commands
+## Setup
 
 **Install Dependencies**
 
@@ -24,19 +24,42 @@ Watch the resulting video at:
 npm i
 ```
 
-**TODO: API setup instructions (weather, market data)**
+**Connect To OpenWeather and NASA APIs**
+
+Copy `template.env` to `.env` where Remotion will read API access keys for OpenWeather and NASA. [See here](https://www.remotion.dev/docs/env-variables) for more information on how Remotion handles environment variables.
 
 ```console
-TODO
+cp template.env .env
 ```
 
-**TODO: Background music setup (see public/audio/external/README.md)**
+Obtain an OpenWeather access key for the weather demo by [signing up here](https://home.openweathermap.org/users/sign_up). The access key can be [found here](https://home.openweathermap.org/api_keys) after login to place in the `.env` file `REMOTION_OPENWEATHER_API_KEY` variable. Note: Once the email address is verified, it takes up to two hours for the key to become active. To customize the weather location, customize `<Weather ... />` in `src/Composition.tsx`.
 
-TODO
+Obtain the NASA access key for the NASA Picture of the Day demo by visiting the [NASA APIs](https://api.nasa.gov/) website and filling out the form. An email will be sent with a verification link. Clicking the link will give access to the API key that can be copied into the `.env` file's `REMOTION_NASA_API_KEY` variable.
 
-**TODO: Note about three.js video rendering on Mac**
+**Background Music Setup**
 
-TODO
+The music used in this project isn't included as part of this repository, yet can be downloaded for free with open licensing to post on YouTube and elsewhere courtesy of [StreamBeats](https://www.senpai.tv/streambeats/).
+
+Visit the [audio download page here](ttps://drive.google.com/drive/folders/1IoVhvfigg25IEaW-QNMGuG72U_pxcoI8). Download and copy `9. EZ PZ.wav` to `public/audio/external/`.
+
+## StreamBeats Audio (thank you!)
+
+Audio courtesy of [StreamBeats](https://www.senpai.tv/streambeats/), can be downloaded to this folder for personal, YouTube and streaming use:
+
+- [9. EZ PZ.wav](https://drive.google.com/drive/folders/1IoVhvfigg25IEaW-QNMGuG72U_pxcoI8)
+  - Download the song. Move to this folder and ensure name is still "9. EZ PZ.wav" (no name changes for simplicity).
+
+## Other Notes
+
+One issue experienced while developing on a Mac was an error when rendering Three.js animations. A work-around for this was to add this line to `remotion.config.js`:
+
+```
+Config.setChromiumOpenGlRenderer('angle');
+```
+
+More on this Chrome version issue can be [found here](https://oss.issuehunt.io/r/remotion-dev/remotion/issues/1761). If this addition is causing issues on non-Mac machines, try disabling the line in `remotion.config.js`.
+
+## Run and Render
 
 **Start Preview**
 
