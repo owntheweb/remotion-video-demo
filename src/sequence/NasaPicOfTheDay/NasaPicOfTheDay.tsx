@@ -117,7 +117,7 @@ export const NasaPicOfTheDay: React.FC = () => {
 						{frame <= 200 && (
 							<span className="drop-shadow-md">{nasaData?.title}</span>
 						)}
-						{frame > 200 && (
+						{frame > 200 && nasaData?.copyright && (
 							<span className="drop-shadow-md">
 								&copy; {nasaData?.copyright}
 							</span>
