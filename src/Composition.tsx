@@ -22,6 +22,7 @@ import {DocumentationLink} from './sequence/DocumentationLink/DocumentationLink'
 import {EnjoyThisVideo} from './sequence/EnjoyThisVideo/EnjoyThisVideo';
 import {NarrationSequence} from './DelayedNarrationSequence';
 import {VideoError} from './VideoError';
+import {ThankYou} from './sequence/ThankYou/ThankYou';
 
 export interface NarrationFrames {
 	narrationAudioKey: string;
@@ -118,12 +119,7 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_Thank-you-for-watching-and-hav',
-				children: (
-					<AbsoluteFill className="bg-black text-white text-7xl p-24">
-						[Placeholder: Thank you for watching and have a very, productive
-						day.]
-					</AbsoluteFill>
-				),
+				children: <ThankYou />,
 			},
 			{
 				duration: 240,
