@@ -30,6 +30,8 @@ Weather data provided by [OpenWeather](https://home.openweathermap.org/).
 
 [Looking at laptop photo](https://github.com/owntheweb/remotion-video-demo/blob/main/public/images/bruce-mars-xj8qrWvuOEs-unsplash-cropped.jpg) by [bruce mars](https://unsplash.com/@brucemars) on [Unsplash](https://unsplash.com/photos/xj8qrWvuOEs)
 
+Text-to-speech narration provided by [murf.ai](https://murf.a)
+
 "Tea time lady" generated with [DALL-E 2](https://openai.com/dall-e-2) and [HeyGen](https://www.heygen.com/affiliate-program).
 
 ## Setup
