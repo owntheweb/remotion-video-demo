@@ -23,6 +23,7 @@ import {EnjoyThisVideo} from './sequence/EnjoyThisVideo/EnjoyThisVideo';
 import {NarrationSequence} from './DelayedNarrationSequence';
 import {VideoError} from './VideoError';
 import {ThankYou} from './sequence/ThankYou/ThankYou';
+import {OpenWeatherUnits} from './sequence/Weather/OpenWeatherData';
 
 export interface NarrationFrames {
 	narrationAudioKey: string;
@@ -79,7 +80,15 @@ export const MyComposition: React.FC = () => {
 			},
 			{
 				narrationAudioKey: 'SubBlock_For-example-a-current-weather',
-				children: <Weather />,
+				children: (
+					<Weather
+						lat={38.859055}
+						lon={-104.813499}
+						locationName="Colorado Springs"
+						lang="en"
+						units={OpenWeatherUnits.IMPERIAL}
+					/>
+				),
 			},
 			{
 				narrationAudioKey: 'SubBlock_It-could-be-helpful-for-a-larg',
