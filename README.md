@@ -20,7 +20,7 @@ Watch the resulting video at:
 
 Background music provided courtesy of [StreamBeats](https://www.senpai.tv/streambeats/)
 
-NASA Picture of the Day courtesy of [NASA](https://api.nasa.gov/).
+Astronomy Picture of the Day courtesy of [NASA](https://api.nasa.gov/).
 
 Weather data provided by [OpenWeather](https://home.openweathermap.org/).
 
@@ -48,7 +48,7 @@ cp template.env .env
 
 Obtain an OpenWeather access key for the weather demo by [signing up here](https://home.openweathermap.org/users/sign_up). The access key can be [found here](https://home.openweathermap.org/api_keys) after login to place in the `.env` file `REMOTION_OPENWEATHER_API_KEY` variable. Note: Once the email address is verified, it takes up to two hours for the key to become active. To customize the weather location, customize `<Weather ... />` in `src/Composition.tsx`.
 
-Obtain the NASA access key for the NASA Picture of the Day demo by visiting the [NASA APIs](https://api.nasa.gov/) website and filling out the form. An email will be sent with a verification link. Clicking the link will give access to the API key that can be copied into the `.env` file's `REMOTION_NASA_API_KEY` variable.
+Obtain the NASA access key for the Astronomy Picture of the Day demo by visiting the [NASA APIs](https://api.nasa.gov/) website and filling out the form. An email will be sent with a verification link. Clicking the link will give access to the API key that can be copied into the `.env` file's `REMOTION_NASA_API_KEY` variable.
 
 **Background Music Setup**
 
