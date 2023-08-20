@@ -18,6 +18,8 @@ Watch the resulting video at:
 
 ## Special thanks
 
+This video was made possible by [Remotion](https://remotion.dev).
+
 Background music provided courtesy of [StreamBeats](https://www.senpai.tv/streambeats/)
 
 Astronomy Picture of the Day courtesy of [NASA](https://api.nasa.gov/).
