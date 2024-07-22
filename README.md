@@ -69,7 +69,7 @@ Audio courtesy of [StreamBeats](https://www.senpai.tv/streambeats/), can be down
 
 ## Other Notes
 
-One issue experienced while developing on a Mac was an error when rendering Three.js animations. A work-around for this was to add this line to `remotion.config.js`:
+One issue experienced while developing on a Mac was an error when rendering Three.js animations. A work-around for this was to add this line to `remotion.config.ts`:
 
 ```
 Config.setChromiumOpenGlRenderer('angle');
